@@ -30,7 +30,6 @@ public class CalendarActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
-    private ArrayList<Event> acceptedEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,20 +60,16 @@ public class CalendarActivity extends AppCompatActivity {
             return true;
         });
 
-        // Get and sort events
-        acceptedEvents = getIntent().getParcelableArrayListExtra("acceptedEvents");
-        if (acceptedEvents == null) {
-            acceptedEvents = new ArrayList<>();
-        }
+        // Get and sort event
 
-        Collections.sort(acceptedEvents, Comparator.comparing(Event::getDate));
+        Collections.sort(EventStorageHelper.getSavedEvents(), Comparator.comparing(Event::getDate));
 
         // Group events by day of week
         Map<DayOfWeek, List<Event>> eventsByDay = new TreeMap<>();
         for (DayOfWeek day : DayOfWeek.values()) {
             eventsByDay.put(day, new ArrayList<>());
         }
-        for (Event e : acceptedEvents) {
+        for (Event e : EventStorageHelper.getSavedEvents()) {
             eventsByDay.get(e.getDate().getDayOfWeek()).add(e);
         }
 
