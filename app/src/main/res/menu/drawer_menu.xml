@@ -2,7 +2,7 @@
     <item
         android:id="@+id/nav_home"
         android:title="Home"
-        android:icon="@android:drawable/ic_menu_view" />
+        android:icon="@drawable/ic_home" />
     <item
         android:id="@+id/nav_calendar"
         android:title="Calendar"
@@ -10,5 +10,5 @@
     <item
         android:id="@+id/nav_profile"
         android:title="Profile"
-        android:icon="@android:drawable/ic_menu_manage" />
+        android:icon="@drawable/ic_profile" />
 </menu>
