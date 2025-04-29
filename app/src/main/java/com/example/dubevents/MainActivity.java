@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        EventStorageHelper.setAllEvents();
+        if (EventStorageHelper.getAllEvents() == null) {
+            EventStorageHelper.setAllEvents();
+        }
 
         // Initialize EventAdapter
         eventAdapter = new EventAdapter(this, EventStorageHelper.getAllEvents());
