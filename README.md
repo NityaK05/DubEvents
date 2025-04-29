@@ -9,6 +9,7 @@ An app for discovering and attending social events at the University of Washingt
 - **Navigation Drawer**: Easily switch between pages.
   
 
+
 ## Inspiration
 As students at the University of Washington, we recognized that on such a diverse and lively campus, it’s challenging to keep track of all the various events happening. From events hosted by the UW’s Residential Programming Board at dorm halls to club workshops and meetings, following and staying aware of all these events can become overwhelming for students, to the point where it hinders connectivity between them. That’s why we wanted to create something that would simplify the process of discovering and attending events, promoting connections between individuals at the UW. And so DubEvents was born — a mobile application that enables students to easily browse events and save them in an organized calendar, making it effortless to stay connected with everything happening on campus and to foster new communities.
 
