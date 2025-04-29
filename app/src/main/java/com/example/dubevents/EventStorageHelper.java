@@ -31,6 +31,9 @@ public class EventStorageHelper {
     }
 
     public static List<Event> getSavedEvents() {
+        if (savedEvents == null) {
+            savedEvents = new ArrayList<>();
+        }
         return savedEvents;
     }
 

@@ -111,20 +111,14 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 if (direction == ItemTouchHelper.RIGHT) {
-                    addToCalendar(EventStorageHelper.getAllEvents().get(position));
+                    EventStorageHelper.addSavedEvents(EventStorageHelper.getAllEvents().get(position));
+                    Toast.makeText(MainActivity.this, "Event saved for Calendar", Toast.LENGTH_SHORT).show();
                     EventStorageHelper.removeEvent(position);
                     eventAdapter.notifyItemRemoved(position);
                 } else if (direction == ItemTouchHelper.LEFT) {
                     Toast.makeText(MainActivity.this, "Event discarded", Toast.LENGTH_SHORT).show();
                     EventStorageHelper.removeEvent(position);
                     eventAdapter.notifyItemRemoved(position);
-                } else if (direction == ItemTouchHelper.UP) {
-                    Event maybeEvent = EventStorageHelper.getAllEvents().get(position);
-                    EventStorageHelper.removeEvent(position);
-                    EventStorageHelper.getSavedEvents().add(maybeEvent);
-                    eventAdapter.notifyItemRemoved(position);
-                    eventAdapter.notifyItemInserted(EventStorageHelper.getAllEvents().size() - 1);
-                    Toast.makeText(MainActivity.this, "Maybe: moved to end", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -187,11 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    }
-
-    private void addToCalendar(Event event) {
-        EventStorageHelper.addSavedEvents(event);
-        Toast.makeText(this, "Event saved for Calendar", Toast.LENGTH_SHORT).show();
     }
 
     @Override
