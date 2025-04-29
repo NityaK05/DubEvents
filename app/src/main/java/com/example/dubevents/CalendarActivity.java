@@ -3,10 +3,10 @@ package com.example.dubevents;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
@@ -104,6 +104,16 @@ public class CalendarActivity extends AppCompatActivity {
                     ((TextView) card.findViewById(R.id.eventDescription)).setText(e.getDescription());
                     ((TextView) card.findViewById(R.id.eventDate)).setText(e.getDate().toLocalDate().toString());
                     ((TextView) card.findViewById(R.id.eventLocation)).setText(e.getLocation());
+
+                    // Set an OnClickListener for the event card to open EventActivityDetails
+                    card.setOnClickListener(v -> {
+                        Intent intent = new Intent(CalendarActivity.this, EventActivityDetails.class);
+                        intent.putExtra("eventTitle", e.getTitle());
+                        intent.putExtra("eventDescription", e.getDescription());
+                        intent.putExtra("eventDate", e.getDate().toString());
+                        intent.putExtra("eventLocation", e.getLocation());
+                        startActivity(intent);
+                    });
 
                     calendarContainer.addView(card);
                 }

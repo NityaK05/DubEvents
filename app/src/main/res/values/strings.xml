@@ -3,4 +3,10 @@
     <string name="app_name">DubEvents</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="name">Name:</string>
+    <string name="major">Major:</string>
+    <string name="graduation_year">Graduation Year:</string>
+    <string name="interests">Interests:</string>
+    <string name="living_situation">Living Situation:</string>
+    <string name="social_background">Social Background:</string>
 </resources>
