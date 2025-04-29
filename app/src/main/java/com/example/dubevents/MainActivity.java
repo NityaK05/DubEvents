@@ -1,10 +1,16 @@
 package com.example.dubevents;
 
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.content.SharedPreferences;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+
         // Show the message every time the activity is opened
         Toast.makeText(this, "Swipe left and right to interact with events!", Toast.LENGTH_LONG).show();
 
@@ -53,12 +60,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Set up the navigation drawer
+        // Drawer
         drawerLayout = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        );
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -68,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_home) {
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_calendar) {
-                // Pass saved events to CalendarActivity
                 Intent intent = new Intent(this, CalendarActivity.class);
                 intent.putParcelableArrayListExtra("acceptedEvents", new ArrayList<>(savedEvents));
                 startActivity(intent);
@@ -80,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        // Set up RecyclerView
+        // RecyclerView setup
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Sample events data
+        // Sample events
         events = new ArrayList<>();
         events.add(new Event("AI Community of Practice", "The UW AI Community of Practice is for everyone! We welcome participation from the entire university, including students. We want to build community and are planning all sorts of fun and interesting events", ZonedDateTime.of(2025, 04, 30, 10, 0, 0, 0, ZoneId.of("PST")), "Zoom"));
         events.add(new Event("UW Botanic Gardens Tour", "UW Botanic Gardens is committed to enriching the lives of all community members with free public tours.", ZonedDateTime.of(2025, 5, 1, 11, 30, 0, 0, ZoneId.of("PST")), "Washington Park Arboretum"));
@@ -99,40 +104,91 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(eventAdapter);
         recyclerView.setHasFixedSize(true);
 
-        // Set up swipe actions
+        // Swipe behavior with green gradient for right swipe
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP, // Allow up movement
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT // Allow left and right swipe
-        ) {
+                ItemTouchHelper.UP, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView,
                                   @NonNull RecyclerView.ViewHolder viewHolder,
                                   @NonNull RecyclerView.ViewHolder target) {
-                return false; // no drag & drop
+                return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 if (direction == ItemTouchHelper.RIGHT) {
-                    // ➡️ Swipe right: Add to calendar
                     addToCalendar(events.get(position));
                     events.remove(position);
                     eventAdapter.notifyItemRemoved(position);
                 } else if (direction == ItemTouchHelper.LEFT) {
-                    // ⬅️ Swipe left: Discard
                     Toast.makeText(MainActivity.this, "Event discarded", Toast.LENGTH_SHORT).show();
                     events.remove(position);
                     eventAdapter.notifyItemRemoved(position);
                 } else if (direction == ItemTouchHelper.UP) {
-                    // ⬆️ Swipe up: Maybe (move to end)
                     Event maybeEvent = events.get(position);
                     events.remove(position);
                     events.add(maybeEvent);
                     eventAdapter.notifyItemRemoved(position);
                     eventAdapter.notifyItemInserted(events.size() - 1);
-
                     Toast.makeText(MainActivity.this, "Maybe: moved to end", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                    @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                                    int actionState, boolean isCurrentlyActive) {
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    int itemTop = viewHolder.itemView.getTop();
+                    int itemBottom = viewHolder.itemView.getBottom();
+                    int itemRight = viewHolder.itemView.getRight();
+                    int itemLeft = viewHolder.itemView.getLeft();
+                    int itemHeight = itemBottom - itemTop;
+                    int itemCenterY = itemTop + itemHeight / 2;
+
+                    Paint paint = new Paint();
+
+                    if (dX > 0) {
+                        // ✅ Right swipe — Green glow (smaller radius)
+                        float radius = Math.max(55f, dX * 1.1f);  // was 70f+, now more compact
+                        float glowCenterX = itemRight - dX * 0.1f;
+
+                        RadialGradient glow = new RadialGradient(
+                                glowCenterX, itemCenterY, radius,
+                                new int[]{
+                                        Color.argb(190, 46, 125, 50),  // bold green with transparency
+                                        Color.TRANSPARENT
+                                },
+                                new float[]{0.3f, 1f},
+                                Shader.TileMode.CLAMP
+                        );
+
+                        paint.setShader(glow);
+                        c.drawCircle(glowCenterX, itemCenterY, radius, paint);
+
+                    } else if (dX < 0) {
+                        // ❌ Left swipe — Softer red glow (smaller radius)
+                        float radius = Math.max(40f, Math.abs(dX) * 0.9f);  // was 50f+, now tighter
+                        float glowCenterX = itemLeft - dX * 0.1f;
+
+                        RadialGradient glow = new RadialGradient(
+                                glowCenterX, itemCenterY, radius,
+                                new int[]{
+                                        Color.argb(140, 198, 40, 40),  // clean red with transparency
+                                        Color.TRANSPARENT
+                                },
+                                new float[]{0.4f, 1f},
+                                Shader.TileMode.CLAMP
+                        );
+
+                        paint.setShader(glow);
+                        c.drawCircle(glowCenterX, itemCenterY, radius, paint);
+                    }
                 }
             }
         };
@@ -142,17 +198,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addToCalendar(Event event) {
-        // Instead of opening the Calendar app immediately,
-        // just store the event into the saved list
         savedEvents.add(event);
         Toast.makeText(this, "Event saved for Calendar", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return toggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 }
