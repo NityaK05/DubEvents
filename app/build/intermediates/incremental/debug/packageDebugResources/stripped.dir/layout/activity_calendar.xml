@@ -8,16 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".CalendarActivity">
 
-    <ImageView
-        android:id="@+id/miniLogo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="start"
-        android:src="@drawable/mini_logo"
-        android:contentDescription="Mini Logo"
-        android:layout_marginStart="16dp" />
-
-
     <!-- Main screen content -->
     <LinearLayout
         android:layout_width="match_parent"
