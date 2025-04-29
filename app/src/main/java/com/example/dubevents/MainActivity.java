@@ -2,7 +2,6 @@ package com.example.dubevents;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.content.SharedPreferences;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private EventAdapter eventAdapter;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
-    private List<Event> events;  // Make this a field so swipe functions can access it
+    private List<Event> events;
     private List<Event> savedEvents = new ArrayList<>();
 
     @Override
@@ -46,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+
+        // Show the message every time the activity is opened
+        Toast.makeText(this, "Swipe left and right to interact with events!", Toast.LENGTH_LONG).show();
 
         // Set up the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_calendar) {
                 // Pass saved events to CalendarActivity
                 Intent intent = new Intent(this, CalendarActivity.class);
-                intent.putParcelableArrayListExtra("acceptedEvents", new ArrayList<>(savedEvents));  // Pass events
+                intent.putParcelableArrayListExtra("acceptedEvents", new ArrayList<>(savedEvents));
                 startActivity(intent);
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_profile) {
@@ -108,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-                // new change
                 if (direction == ItemTouchHelper.RIGHT) {
                     // ➡️ Swipe right: Add to calendar
                     addToCalendar(events.get(position));
