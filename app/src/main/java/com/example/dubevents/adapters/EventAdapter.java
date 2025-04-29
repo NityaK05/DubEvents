@@ -64,6 +64,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             binding.eventTitle.setText(event.getTitle());
             binding.eventDate.setText(formatEventDate(event.getDate()));
             binding.eventLocation.setText(event.getLocation());
+            binding.eventDescription.setText(event.getDescription());
         }
 
         private String formatEventDate(ZonedDateTime date) {
