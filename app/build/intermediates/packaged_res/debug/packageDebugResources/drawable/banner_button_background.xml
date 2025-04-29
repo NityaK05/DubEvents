@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#F1E6C8" /> <!-- Light UW Gold -->
+    <corners android:radius="16dp" />
+</shape>
