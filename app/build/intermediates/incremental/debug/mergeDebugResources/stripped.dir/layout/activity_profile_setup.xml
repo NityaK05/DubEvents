@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Step 1: Name -->
+        <LinearLayout
+            android:id="@+id/step_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/logo"
+                android:contentDescription="App Logo"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Your Full Name"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full Name"
+                android:gravity="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Step 2: Major -->
+        <LinearLayout
+            android:id="@+id/step_major"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/logo"
+                android:contentDescription="App Logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Your Major"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/input_major"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Major"
+                android:gravity="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Step 3: Graduation Year -->
+        <LinearLayout
+            android:id="@+id/step_graduation_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/logo"
+                android:contentDescription="App Logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Your Graduation Year"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/input_graduation_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Graduation Year"
+                android:gravity="center"
+                android:inputType="number"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Step 4: Interests -->
+        <LinearLayout
+            android:id="@+id/step_interests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/logo"
+                android:contentDescription="App Logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Your Interests"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/interests_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <EditText
+                android:id="@+id/input_custom_interest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Custom Interest"
+                android:gravity="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Step 5: Living Situation -->
+        <LinearLayout
+            android:id="@+id/step_living"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/logo"
+                android:contentDescription="App Logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Where Do You Live?"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <Spinner
+                android:id="@+id/input_living"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Step 6: Background -->
+        <LinearLayout
+            android:id="@+id/step_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/logo"
+                android:contentDescription="App Logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tell Us About Your Background"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/input_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cultural/Social Background"
+                android:gravity="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textSize="22sp"
+            android:layout_marginTop="24dp" />
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Profile"
+            android:textSize="22sp"
+            android:layout_marginTop="12dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>
