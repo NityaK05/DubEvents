@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Name -->
+    <TextView
+        android:id="@+id/profileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name placeholder"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Major -->
+    <TextView
+        android:id="@+id/profileMajor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Major placeholder"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Graduation Year -->
+    <TextView
+        android:id="@+id/profileGraduationYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Graduation Year placeholder"
+        android:textSize="18sp" />
+
+</LinearLayout>

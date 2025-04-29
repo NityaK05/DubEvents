@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "468303995194",
+    "project_id": "dubevents12",
+    "storage_bucket": "dubevents12.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468303995194:android:879c748255826b7cecf003",
+        "android_client_info": {
+          "package_name": "com.example.dubevents"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuJGcZAwfRiTcSiCHSFoC1mqjneV7qr64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
