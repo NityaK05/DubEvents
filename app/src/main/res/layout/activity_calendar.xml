@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,32 +8,42 @@
     android:layout_height="match_parent"
     tools:context=".CalendarActivity">
 
+    <!-- Main screen content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#F8F8F8">
 
-        <!-- Toolbar with title -->
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple"
+            android:background="#4B2E83"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="My Events"
             app:titleTextColor="@android:color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <!-- RecyclerView for events -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewCalendar"
+        <!-- Scrollable calendar container -->
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="16dp"/>
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/calendarContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="#F8F8F8" />
+        </ScrollView>
     </LinearLayout>
 
-    <!-- Navigation drawer menu -->
+    <!-- Navigation drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
