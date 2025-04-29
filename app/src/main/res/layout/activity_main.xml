@@ -17,13 +17,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
             android:background="@color/purple"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="DubEvents"
             app:titleTextColor="@android:color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <!-- Ensure RecyclerView is properly constrained -->
+        <!-- RecyclerView for the event list -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -33,12 +34,14 @@
 
     </LinearLayout>
 
+    <!-- NavigationView without a header -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/white"
-        app:menu="@menu/drawer_menu" />
-
+        android:background="@color/purple"
+        app:menu="@menu/drawer_menu"
+        app:itemTextColor="@android:color/white"
+        app:itemIconTint="@android:color/white" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -15,14 +15,15 @@
         android:orientation="vertical"
         android:background="#F8F8F8">
 
-        <!-- Toolbar -->
+        <!-- Toolbar for the hamburger button -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
             android:background="@color/purple"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="My Events"
+            app:title="DubEvents"
             app:titleTextColor="@android:color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -43,12 +44,14 @@
         </ScrollView>
     </LinearLayout>
 
-    <!-- Navigation drawer -->
+    <!-- Navigation drawer with matching style -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/white"
-        app:menu="@menu/drawer_menu" />
+        android:background="@color/purple"
+        app:menu="@menu/drawer_menu"
+        app:itemTextColor="@android:color/white"
+        app:itemIconTint="@android:color/white" />
 </androidx.drawerlayout.widget.DrawerLayout>

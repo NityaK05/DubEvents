@@ -4,7 +4,6 @@ An app for discovering and attending social events at the University of Washingt
 ## Features
 - **Home Page**: Browse and swipe through events.
 - **Calendar Page**: View events added to your UW Google Calendar.
-- **Profile Page**: Set up your profile with your UW email, including name, major, and graduation year.
+- **Profile Page**: Set up your profile with your UW email, including name, major, graduation year, interests, living situation, and cultural/social background. First-time users are guided through a slide-show format setup, ensuring all profile details are collected interactively.
 - **Login Requirement**: Users must log in with their University of Washington email to access the app.
 - **Navigation Drawer**: Easily switch between pages.
-
