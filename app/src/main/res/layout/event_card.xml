@@ -1,47 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
-    android:padding="16dp"
-    tools:context=".MainActivity">
+    android:layout_margin="12dp"
+    android:elevation="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background = "@color/white">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/eventTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Event Title"
+            android:textColor="#4B2E83"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"
-            android:layout_margin = "5dp"/>
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/eventDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event Description"
+            android:textColor="#1E1E1E"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
 
         <TextView
             android:id="@+id/eventLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Event Location"
+            android:text="Location"
+            android:textColor="#B7A57A"
+            android:textStyle="italic"
             android:textSize="14sp"
-            android:layout_marginBottom="8dp"
-            android:layout_margin = "5dp"/>
+            android:layout_marginBottom="4dp" />
 
         <TextView
             android:id="@+id/eventDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Event Date"
-            android:textSize="14sp"
-            android:layout_margin = "5dp"/>
-    </LinearLayout>
+            android:text="Date"
+            android:textColor="#1E1E1E"
+            android:textSize="13sp"
+            android:layout_marginBottom="4dp" />
 
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

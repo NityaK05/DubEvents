@@ -3,28 +3,34 @@ package com.example.dubevents;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.graphics.Color;
+import android.graphics.Typeface;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dubevents.adapters.EventAdapter;
 import com.google.android.material.navigation.NavigationView;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CalendarActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private ArrayList<Event> acceptedEvents;
-    private EventAdapter eventAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +69,46 @@ public class CalendarActivity extends AppCompatActivity {
 
         Collections.sort(acceptedEvents, Comparator.comparing(Event::getDate));
 
-        // Set up RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewCalendar);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        eventAdapter = new EventAdapter(this, acceptedEvents);
-        recyclerView.setAdapter(eventAdapter);
+        // Group events by day of week
+        Map<DayOfWeek, List<Event>> eventsByDay = new TreeMap<>();
+        for (DayOfWeek day : DayOfWeek.values()) {
+            eventsByDay.put(day, new ArrayList<>());
+        }
+        for (Event e : acceptedEvents) {
+            eventsByDay.get(e.getDate().getDayOfWeek()).add(e);
+        }
+
+        // Display events under each weekday
+        LinearLayout calendarContainer = findViewById(R.id.calendarContainer);
+        LayoutInflater inflater = LayoutInflater.from(this);
+
+        for (DayOfWeek day : DayOfWeek.values()) {
+            TextView dayHeader = new TextView(this);
+            dayHeader.setText(day.toString());
+            dayHeader.setTextSize(22f);
+            dayHeader.setTextColor(Color.parseColor("#B7A57A"));  // UW Gold
+            dayHeader.setTypeface(null, Typeface.BOLD);
+            dayHeader.setPadding(0, 32, 0, 12);
+            calendarContainer.addView(dayHeader);
+
+            List<Event> events = eventsByDay.get(day);
+            if (events.isEmpty()) {
+                TextView empty = new TextView(this);
+                empty.setText("No events");
+                calendarContainer.addView(empty);
+            } else {
+                for (Event e : events) {
+                    View card = inflater.inflate(R.layout.event_card, calendarContainer, false);
+
+                    ((TextView) card.findViewById(R.id.eventTitle)).setText(e.getTitle());
+                    ((TextView) card.findViewById(R.id.eventDescription)).setText(e.getDescription());
+                    ((TextView) card.findViewById(R.id.eventDate)).setText(e.getDate().toLocalDate().toString());
+                    ((TextView) card.findViewById(R.id.eventLocation)).setText(e.getLocation());
+
+                    calendarContainer.addView(card);
+                }
+            }
+        }
     }
 
     @Override
