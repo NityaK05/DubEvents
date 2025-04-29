@@ -54,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_home) {
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_calendar) {
+                // Pass saved events to CalendarActivity
                 Intent intent = new Intent(this, CalendarActivity.class);
-                intent.putParcelableArrayListExtra("acceptedEvents", new ArrayList<>(savedEvents));
+                intent.putParcelableArrayListExtra("acceptedEvents", new ArrayList<>(savedEvents));  // Pass events
                 startActivity(intent);
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_profile) {
@@ -72,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         // Sample events data
         events = new ArrayList<>();
         events.add(new Event("Welcome Party", "A fun welcome party for new students.", ZonedDateTime.of(2025, 10, 1, 14, 0, 0, 0, ZoneId.of("PST")), "Student Center"));
-        events.add(new Event("Tech Talk", "Learn about the latest in AI and ML.", ZonedDateTime.of(2025, 10, 5, 16, 0, 0, 0, ZoneId.of("PST")), "Engineering Hall"));
-        events.add(new Event("Hackathon", "Join us for a 24-hour coding challenge.", ZonedDateTime.of(2025, 10, 10, 12, 30, 0, 0, ZoneId.of("PST")), "Innovation Lab"));
+        events.add(new Event("Tech Talk", "Learn about the latest in AI and ML.", ZonedDateTime.of(2025, 10, 10, 16, 0, 0, 0, ZoneId.of("PST")), "Engineering Hall"));
+        events.add(new Event("Hackathon", "Join us for a 24-hour coding challenge.", ZonedDateTime.of(2025, 10, 5, 12, 30, 0, 0, ZoneId.of("PST")), "Innovation Lab"));
 
         // Initialize EventAdapter
         eventAdapter = new EventAdapter(this, events);
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-                //new change
+                // new change
                 if (direction == ItemTouchHelper.RIGHT) {
                     // ➡️ Swipe right: Add to calendar
                     addToCalendar(events.get(position));
@@ -127,10 +128,8 @@ public class MainActivity extends AppCompatActivity {
         // Instead of opening the Calendar app immediately,
         // just store the event into the saved list
         savedEvents.add(event);
-
         Toast.makeText(this, "Event saved for Calendar", Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

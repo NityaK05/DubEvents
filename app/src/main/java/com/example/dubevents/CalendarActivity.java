@@ -1,68 +1,77 @@
 package com.example.dubevents;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.widget.TextView;
-import android.widget.LinearLayout;
-import android.view.Gravity;
-import android.view.ViewGroup;
-import android.graphics.Typeface;
-import java.util.HashMap;
-import java.util.Map;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.dubevents.adapters.EventAdapter;
+import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    // Sample hardcoded events for each weekday
-    private final Map<String, String[]> weeklyEvents = new HashMap<String, String[]>() {{
-        put("Monday", new String[]{"CS Lecture at 10 AM", "Math Study Group at 2 PM"});
-        put("Tuesday", new String[]{"Hackathon Prep at 3 PM"});
-        put("Wednesday", new String[]{"Club Meeting at 12 PM"});
-        put("Thursday", new String[]{"Open Gym at 5 PM"});
-        put("Friday", new String[]{"Tech Talk at 1 PM", "Dinner Social at 7 PM"});
-    }};
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private ArrayList<Event> acceptedEvents;
+    private EventAdapter eventAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calendar);
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(32, 32, 32, 32);
-        layout.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        // Title
-        TextView title = new TextView(this);
-        title.setText("Weekly Calendar");
-        title.setTextSize(24);
-        title.setTypeface(null, Typeface.BOLD);
-        title.setGravity(Gravity.CENTER_HORIZONTAL);
-        layout.addView(title);
+        // Drawer
+        drawerLayout = findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-        // Loop through weekdays and display events
-        for (String day : new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}) {
-            TextView dayView = new TextView(this);
-            dayView.setText(day);
-            dayView.setTextSize(20);
-            dayView.setTypeface(null, Typeface.BOLD);
-            dayView.setPadding(0, 20, 0, 10);
-            layout.addView(dayView);
-
-            String[] events = weeklyEvents.getOrDefault(day, new String[]{});
-            if (events.length == 0) {
-                TextView noEvent = new TextView(this);
-                noEvent.setText("  • No events");
-                layout.addView(noEvent);
-            } else {
-                for (String event : events) {
-                    TextView eventView = new TextView(this);
-                    eventView.setText("  • " + event);
-                    layout.addView(eventView);
-                }
+        // Navigation
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            int id = menuItem.getItemId();
+            if (id == R.id.nav_home) {
+                startActivity(new Intent(this, MainActivity.class));
+            } else if (id == R.id.nav_profile) {
+                startActivity(new Intent(this, ProfileActivity.class));
             }
+            drawerLayout.closeDrawers();
+            return true;
+        });
+
+        // Get and sort events
+        acceptedEvents = getIntent().getParcelableArrayListExtra("acceptedEvents");
+        if (acceptedEvents == null) {
+            acceptedEvents = new ArrayList<>();
         }
 
-        setContentView(layout);
+        Collections.sort(acceptedEvents, Comparator.comparing(Event::getDate));
+
+        // Set up RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewCalendar);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        eventAdapter = new EventAdapter(this, acceptedEvents);
+        recyclerView.setAdapter(eventAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return toggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 }
