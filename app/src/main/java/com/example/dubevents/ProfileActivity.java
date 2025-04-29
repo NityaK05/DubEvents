@@ -43,44 +43,47 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
 
-        // Reset profile setup state to prompt the user again
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("profileSetupComplete", false);
-        editor.apply();
+        boolean isProfileComplete = sharedPreferences.getBoolean("profileSetupComplete", false);
 
-        // Always show the profile setup screen
-        isSetupMode = true;
-        setContentView(R.layout.activity_profile_setup);
+        if (isProfileComplete) {
+            // Profile is complete, show the profile display screen
+            isSetupMode = false;
+            displayProfile();
+        } else {
+            // Profile is not complete, show the setup screen
+            isSetupMode = true;
+            setContentView(R.layout.activity_profile_setup);
 
-        steps = new View[]{
-                findViewById(R.id.step_name),
-                findViewById(R.id.step_major),
-                findViewById(R.id.step_graduation_year),
-                findViewById(R.id.step_interests),
-                findViewById(R.id.step_living),
-                findViewById(R.id.step_background)
-        };
+            steps = new View[]{
+                    findViewById(R.id.step_name),
+                    findViewById(R.id.step_major),
+                    findViewById(R.id.step_graduation_year),
+                    findViewById(R.id.step_interests),
+                    findViewById(R.id.step_living),
+                    findViewById(R.id.step_background)
+            };
 
-        nextButton = findViewById(R.id.next_button);
-        saveButton = findViewById(R.id.save_button);
+            nextButton = findViewById(R.id.next_button);
+            saveButton = findViewById(R.id.save_button);
 
-        nextButton.setOnClickListener(v -> handleNextStep());
-        saveButton.setOnClickListener(v -> saveProfileData());
+            nextButton.setOnClickListener(v -> handleNextStep());
+            saveButton.setOnClickListener(v -> saveProfileData());
 
-        livingSpinner = findViewById(R.id.input_living);
-        if (livingSpinner != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_spinner_item,
-                    new String[]{"On Campus", "Off Campus", "Commuter"});
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            livingSpinner.setAdapter(adapter);
+            livingSpinner = findViewById(R.id.input_living);
+            if (livingSpinner != null) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item,
+                        new String[]{"On Campus", "Off Campus", "Commuter"});
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                livingSpinner.setAdapter(adapter);
+            }
+
+            showStep(currentStep);
         }
-
-        showStep(currentStep);
     }
+
 
     private void showStep(int stepIndex) {
         for (int i = 0; i < steps.length; i++) {

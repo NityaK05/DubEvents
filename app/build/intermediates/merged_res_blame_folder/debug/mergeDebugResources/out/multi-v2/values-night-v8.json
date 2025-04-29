@@ -4,24 +4,7 @@
             "outputFile": "com.example.dubevents.app-mergeDebugResources-31:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/swararamesh/.gradle/caches/8.11.1/transforms/abb3ca7722fedf2651e5a963241f6216/transformed/appcompat-1.7.0/res/values-night-v8/values-night-v8.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,125,209,293,389,491,593,687",
-                        "endColumns": "69,83,83,95,101,101,93,88",
-                        "endOffsets": "120,204,288,384,486,588,682,771"
-                    },
-                    "to": {
-                        "startLines": "6,7,8,9,10,11,12,39",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "172,242,326,410,506,608,710,3692",
-                        "endColumns": "69,83,83,95,101,101,93,88",
-                        "endOffsets": "237,321,405,501,603,705,799,3776"
-                    }
-                },
-                {
-                    "source": "/Users/swararamesh/.gradle/caches/8.11.1/transforms/83ae7f3f7254a5f4c530faa78fa514bb/transformed/material-1.12.0/res/values-night-v8/values-night-v8.xml",
+                    "source": "C:\\Users\\Radit\\.gradle\\caches\\8.11.1\\transforms\\83ae7f3f7254a5f4c530faa78fa514bb\\transformed\\material-1.12.0\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,14 +21,31 @@
                     }
                 },
                 {
-                    "source": "/Users/swararamesh/development/source/Sweccathon2024/DubEvents3/app/src/main/res/values-night/themes.xml",
+                    "source": "C:\\Users\\Radit\\.gradle\\caches\\8.11.1\\transforms\\abb3ca7722fedf2651e5a963241f6216\\transformed\\appcompat-1.7.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,125,209,293,389,491,593,687",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "120,204,288,384,486,588,682,771"
+                    },
+                    "to": {
+                        "startLines": "6,7,8,9,10,11,12,39",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "172,242,326,410,506,608,710,3692",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "237,321,405,501,603,705,799,3776"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Radit\\StudioProjects\\DubEvents1\\app\\src\\main\\res\\values-night\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
-                        "startOffsets": "100",
+                        "startOffsets": "102",
                         "endLines": "5",
                         "endColumns": "12",
-                        "endOffsets": "316"
+                        "endOffsets": "321"
                     },
                     "to": {
                         "startLines": "2",

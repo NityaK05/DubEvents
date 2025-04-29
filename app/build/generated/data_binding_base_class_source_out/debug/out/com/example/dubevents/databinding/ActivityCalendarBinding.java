@@ -4,7 +4,6 @@ package com.example.dubevents.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,9 +28,6 @@ public final class ActivityCalendarBinding implements ViewBinding {
   public final DrawerLayout drawerLayout;
 
   @NonNull
-  public final ImageView miniLogo;
-
-  @NonNull
   public final NavigationView navView;
 
   @NonNull
@@ -39,11 +35,10 @@ public final class ActivityCalendarBinding implements ViewBinding {
 
   private ActivityCalendarBinding(@NonNull DrawerLayout rootView,
       @NonNull LinearLayout calendarContainer, @NonNull DrawerLayout drawerLayout,
-      @NonNull ImageView miniLogo, @NonNull NavigationView navView, @NonNull Toolbar toolbar) {
+      @NonNull NavigationView navView, @NonNull Toolbar toolbar) {
     this.rootView = rootView;
     this.calendarContainer = calendarContainer;
     this.drawerLayout = drawerLayout;
-    this.miniLogo = miniLogo;
     this.navView = navView;
     this.toolbar = toolbar;
   }
@@ -83,12 +78,6 @@ public final class ActivityCalendarBinding implements ViewBinding {
 
       DrawerLayout drawerLayout = (DrawerLayout) rootView;
 
-      id = R.id.miniLogo;
-      ImageView miniLogo = ViewBindings.findChildViewById(rootView, id);
-      if (miniLogo == null) {
-        break missingId;
-      }
-
       id = R.id.nav_view;
       NavigationView navView = ViewBindings.findChildViewById(rootView, id);
       if (navView == null) {
@@ -102,7 +91,7 @@ public final class ActivityCalendarBinding implements ViewBinding {
       }
 
       return new ActivityCalendarBinding((DrawerLayout) rootView, calendarContainer, drawerLayout,
-          miniLogo, navView, toolbar);
+          navView, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

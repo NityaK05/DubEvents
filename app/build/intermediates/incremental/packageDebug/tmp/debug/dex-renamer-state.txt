@@ -1,9 +1,9 @@
-#Tue Apr 29 08:28:04 PDT 2025
-base.0=/Users/swararamesh/development/source/Sweccathon2024/DubEvents3/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-base.1=/Users/swararamesh/development/source/Sweccathon2024/DubEvents3/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-base.2=/Users/swararamesh/development/source/Sweccathon2024/DubEvents3/app/build/intermediates/dex/debug/mergeProjectDexDebug/13/classes.dex
-base.3=/Users/swararamesh/development/source/Sweccathon2024/DubEvents3/app/build/intermediates/dex/debug/mergeProjectDexDebug/2/classes.dex
-base.4=/Users/swararamesh/development/source/Sweccathon2024/DubEvents3/app/build/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
+#Tue Apr 29 10:16:13 PDT 2025
+base.0=C\:\\Users\\Radit\\StudioProjects\\DubEvents1\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\Users\\Radit\\StudioProjects\\DubEvents1\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=C\:\\Users\\Radit\\StudioProjects\\DubEvents1\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
+base.3=C\:\\Users\\Radit\\StudioProjects\\DubEvents1\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
+base.4=C\:\\Users\\Radit\\StudioProjects\\DubEvents1\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=13/classes.dex

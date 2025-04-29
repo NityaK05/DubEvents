@@ -4,6 +4,7 @@ package com.example.dubevents.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -31,15 +32,19 @@ public final class ActivityMainBinding implements ViewBinding {
   public final RecyclerView recyclerView;
 
   @NonNull
+  public final LinearLayout swipeBanner;
+
+  @NonNull
   public final Toolbar toolbar;
 
   private ActivityMainBinding(@NonNull DrawerLayout rootView, @NonNull DrawerLayout drawerLayout,
       @NonNull NavigationView navView, @NonNull RecyclerView recyclerView,
-      @NonNull Toolbar toolbar) {
+      @NonNull LinearLayout swipeBanner, @NonNull Toolbar toolbar) {
     this.rootView = rootView;
     this.drawerLayout = drawerLayout;
     this.navView = navView;
     this.recyclerView = recyclerView;
+    this.swipeBanner = swipeBanner;
     this.toolbar = toolbar;
   }
 
@@ -84,6 +89,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.swipeBanner;
+      LinearLayout swipeBanner = ViewBindings.findChildViewById(rootView, id);
+      if (swipeBanner == null) {
+        break missingId;
+      }
+
       id = R.id.toolbar;
       Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
       if (toolbar == null) {
@@ -91,7 +102,7 @@ public final class ActivityMainBinding implements ViewBinding {
       }
 
       return new ActivityMainBinding((DrawerLayout) rootView, drawerLayout, navView, recyclerView,
-          toolbar);
+          swipeBanner, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
