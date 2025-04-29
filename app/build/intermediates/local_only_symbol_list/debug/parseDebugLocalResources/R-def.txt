@@ -4,14 +4,12 @@ color black
 color gold
 color purple
 color white
-drawable banner_button_background
-drawable ic_arrow_left
-drawable ic_arrow_right
 drawable ic_home
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_profile
-drawable swipe_banner_bg
+drawable logo
+drawable mini_logo
 id btnSaveProfile
 id calendarContainer
 id display_background
@@ -34,6 +32,7 @@ id input_living
 id input_major
 id input_name
 id interests_layout
+id miniLogo
 id nav_calendar
 id nav_home
 id nav_profile
@@ -47,7 +46,6 @@ id step_interests
 id step_living
 id step_major
 id step_name
-id swipeBanner
 id toolbar
 layout activity_calendar
 layout activity_main
@@ -58,7 +56,6 @@ layout event_activity_details
 layout event_card
 layout item_event
 menu drawer_menu
-menu navigation_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name
@@ -71,6 +68,7 @@ string navigation_drawer_close
 string navigation_drawer_open
 string social_background
 style Base.Theme.DubEvents
+style RoundedCornerImage
 style Theme.DubEvents
 xml backup_rules
 xml data_extraction_rules

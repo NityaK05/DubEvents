@@ -42,41 +42,44 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
 
-        if (sharedPreferences.contains("name")) {
-            isSetupMode = false;
-            displayProfile();
-        } else {
-            isSetupMode = true;
-            setContentView(R.layout.activity_profile_setup);
+        // Reset profile setup state to prompt the user again
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("profileSetupComplete", false);
+        editor.apply();
 
-            steps = new View[]{
-                    findViewById(R.id.step_name),
-                    findViewById(R.id.step_major),
-                    findViewById(R.id.step_graduation_year),
-                    findViewById(R.id.step_interests),
-                    findViewById(R.id.step_living),
-                    findViewById(R.id.step_background)
-            };
+        // Always show the profile setup screen
+        isSetupMode = true;
+        setContentView(R.layout.activity_profile_setup);
 
-            nextButton = findViewById(R.id.next_button);
-            saveButton = findViewById(R.id.save_button);
+        steps = new View[]{
+                findViewById(R.id.step_name),
+                findViewById(R.id.step_major),
+                findViewById(R.id.step_graduation_year),
+                findViewById(R.id.step_interests),
+                findViewById(R.id.step_living),
+                findViewById(R.id.step_background)
+        };
 
-            nextButton.setOnClickListener(v -> handleNextStep());
-            saveButton.setOnClickListener(v -> saveProfileData());
+        nextButton = findViewById(R.id.next_button);
+        saveButton = findViewById(R.id.save_button);
 
-            livingSpinner = findViewById(R.id.input_living);
-            if (livingSpinner != null) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                        android.R.layout.simple_spinner_item,
-                        new String[]{"On Campus", "Off Campus", "Commuter"});
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                livingSpinner.setAdapter(adapter);
-            }
+        nextButton.setOnClickListener(v -> handleNextStep());
+        saveButton.setOnClickListener(v -> saveProfileData());
 
-            showStep(currentStep);
+        livingSpinner = findViewById(R.id.input_living);
+        if (livingSpinner != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_item,
+                    new String[]{"On Campus", "Off Campus", "Commuter"});
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            livingSpinner.setAdapter(adapter);
         }
+
+        showStep(currentStep);
     }
 
     private void showStep(int stepIndex) {
@@ -104,6 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void saveProfileData() {
+        // Proceed with saving profile data if setup is not yet complete
         String name = ((EditText) findViewById(R.id.input_name)).getText().toString();
         String major = ((EditText) findViewById(R.id.input_major)).getText().toString();
         String graduationYear = ((EditText) findViewById(R.id.input_graduation_year)).getText().toString();
@@ -138,10 +142,12 @@ public class ProfileActivity extends AppCompatActivity {
         editor.putStringSet("interests", interests);
         editor.putString("living", living);
         editor.putString("background", background);
+        editor.putBoolean("profileSetupComplete", true);  // Mark the profile as completed
         editor.apply();
 
         Toast.makeText(this, "Profile saved!", Toast.LENGTH_SHORT).show();
 
+        // Go to main activity after saving the profile
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

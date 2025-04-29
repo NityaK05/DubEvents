@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Toolbar -->
+        <!-- Toolbar for the hamburger button -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -23,68 +23,7 @@
             app:titleTextColor="@android:color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <!-- Swipe banner without background, purple arrows -->
-        <LinearLayout
-            android:id="@+id/swipeBanner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="12dp"
-            android:padding="8dp"
-            android:gravity="center_vertical">
-
-            <!-- Left arrow icon -->
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_left"
-                android:contentDescription="Left arrow"
-                android:tint="@color/purple"
-                android:layout_marginEnd="8dp" />
-
-            <!-- Left label -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Swipe Left:\nNot Interested"
-                android:textColor="@color/purple"
-                android:background="@drawable/banner_button_background"
-                android:padding="12dp"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.02"
-                android:layout_marginEnd="6dp" />
-
-            <!-- Right label -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Swipe Right:\nInterested"
-                android:textColor="@color/purple"
-                android:background="@drawable/banner_button_background"
-                android:padding="12dp"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.02"
-                android:layout_marginStart="6dp" />
-
-            <!-- Right arrow icon -->
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_right"
-                android:contentDescription="Right arrow"
-                android:tint="@color/purple"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-
-        <!-- RecyclerView for events -->
+        <!-- RecyclerView for the event list -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -93,7 +32,7 @@
 
     </LinearLayout>
 
-    <!-- Navigation drawer -->
+    <!-- NavigationView without a header -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

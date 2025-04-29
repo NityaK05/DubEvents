@@ -27,8 +27,10 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.DubEvents" >
+
+        <!-- Set ProfileActivity as launcher -->
         <activity
-            android:name="com.example.dubevents.MainActivity"
+            android:name="com.example.dubevents.ProfileActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,9 +38,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Other activities -->
+        <activity android:name="com.example.dubevents.MainActivity" />
         <activity android:name="com.example.dubevents.EventActivityDetails" />
         <activity android:name="com.example.dubevents.CalendarActivity" />
-        <activity android:name="com.example.dubevents.ProfileActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
