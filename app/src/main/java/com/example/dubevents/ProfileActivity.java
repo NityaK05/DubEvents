@@ -46,42 +46,40 @@ public class ProfileActivity extends AppCompatActivity {
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
 
-        // Check if profile setup has already been completed
-        if (sharedPreferences.contains("name")) {
-            isSetupMode = false;
-            displayProfile();
-        } else {
-            isSetupMode = true;
+        // Reset profile setup state to prompt the user again
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("profileSetupComplete", false);
+        editor.apply();
 
-            // If setup has not been done, display setup profile page
-            setContentView(R.layout.activity_profile_setup);
+        // Always show the profile setup screen
+        isSetupMode = true;
+        setContentView(R.layout.activity_profile_setup);
 
-            steps = new View[]{
-                    findViewById(R.id.step_name),
-                    findViewById(R.id.step_major),
-                    findViewById(R.id.step_graduation_year),
-                    findViewById(R.id.step_interests),
-                    findViewById(R.id.step_living),
-                    findViewById(R.id.step_background)
-            };
+        steps = new View[]{
+                findViewById(R.id.step_name),
+                findViewById(R.id.step_major),
+                findViewById(R.id.step_graduation_year),
+                findViewById(R.id.step_interests),
+                findViewById(R.id.step_living),
+                findViewById(R.id.step_background)
+        };
 
-            nextButton = findViewById(R.id.next_button);
-            saveButton = findViewById(R.id.save_button);
+        nextButton = findViewById(R.id.next_button);
+        saveButton = findViewById(R.id.save_button);
 
-            nextButton.setOnClickListener(v -> handleNextStep());
-            saveButton.setOnClickListener(v -> saveProfileData());
+        nextButton.setOnClickListener(v -> handleNextStep());
+        saveButton.setOnClickListener(v -> saveProfileData());
 
-            livingSpinner = findViewById(R.id.input_living);
-            if (livingSpinner != null) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                        android.R.layout.simple_spinner_item,
-                        new String[]{"On Campus", "Off Campus", "Commuter"});
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                livingSpinner.setAdapter(adapter);
-            }
-
-            showStep(currentStep);
+        livingSpinner = findViewById(R.id.input_living);
+        if (livingSpinner != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_item,
+                    new String[]{"On Campus", "Off Campus", "Commuter"});
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            livingSpinner.setAdapter(adapter);
         }
+
+        showStep(currentStep);
     }
 
     private void showStep(int stepIndex) {
@@ -109,6 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void saveProfileData() {
+        // Proceed with saving profile data if setup is not yet complete
         String name = ((EditText) findViewById(R.id.input_name)).getText().toString();
         String major = ((EditText) findViewById(R.id.input_major)).getText().toString();
         String graduationYear = ((EditText) findViewById(R.id.input_graduation_year)).getText().toString();
@@ -143,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
         editor.putStringSet("interests", interests);
         editor.putString("living", living);
         editor.putString("background", background);
-        editor.putBoolean("profileSetupComplete", true);  // Add a flag to indicate setup is complete
+        editor.putBoolean("profileSetupComplete", true);  // Mark the profile as completed
         editor.apply();
 
         Toast.makeText(this, "Profile saved!", Toast.LENGTH_SHORT).show();
