@@ -42,13 +42,18 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
 
+        // Check if profile setup has already been completed
         if (sharedPreferences.contains("name")) {
             isSetupMode = false;
             displayProfile();
         } else {
             isSetupMode = true;
+
+            // If setup has not been done, display setup profile page
             setContentView(R.layout.activity_profile_setup);
 
             steps = new View[]{
@@ -138,10 +143,12 @@ public class ProfileActivity extends AppCompatActivity {
         editor.putStringSet("interests", interests);
         editor.putString("living", living);
         editor.putString("background", background);
+        editor.putBoolean("profileSetupComplete", true);  // Add a flag to indicate setup is complete
         editor.apply();
 
         Toast.makeText(this, "Profile saved!", Toast.LENGTH_SHORT).show();
 
+        // Go to main activity after saving the profile
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

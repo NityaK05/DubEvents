@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Show the message every time the activity is opened
-        Toast.makeText(this, "Swipe left and right to interact with events!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Swipe left to discard and right to add to calendar!", Toast.LENGTH_LONG).show();
 
         // Set up the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
