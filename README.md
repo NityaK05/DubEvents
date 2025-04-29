@@ -7,6 +7,7 @@ An app for discovering and attending social events at the University of Washingt
 - **Profile Page**: Set up your profile with your UW email, including name, major, graduation year, interests, living situation, and cultural/social background. First-time users are guided through a slide-show format setup, ensuring all profile details are collected interactively.
 - **Login Requirement**: Users must log in with their University of Washington email to access the app.
 - **Navigation Drawer**: Easily switch between pages.
+  
 
 ## Inspiration
 We often found ourselves missing out on events and having a hard time keeping up with all of the events at the University of Washington as students here. From social events and parties to clubs, workshops, and dorm hall-specific gatherings, there are numerous events to keep track of. With a campus as active and diverse as UW, we wanted to create something that would simplify discovering and attending events in a way that feels intuitive, personal, and social. We created DubEvents, a mobile application that enables students to easily browse, save, and RSVP for events in a fun, swipe-based format, making it effortless to stay connected with everything happening on campus.
