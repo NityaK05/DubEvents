@@ -20,7 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#4B2E83"
+            android:background="@color/purple"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="My Events"
             app:titleTextColor="@android:color/white"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:background="#F8F8F8" />
+                android:background="@color/white" />
         </ScrollView>
     </LinearLayout>
 
