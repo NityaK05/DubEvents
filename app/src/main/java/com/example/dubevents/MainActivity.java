@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private EventAdapter eventAdapter;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
-    private List<Event> events;
-    private List<Event> savedEvents = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_calendar) {
                 Intent intent = new Intent(this, CalendarActivity.class);
-                intent.putParcelableArrayListExtra("acceptedEvents", new ArrayList<>(savedEvents));
+                intent.putParcelableArrayListExtra("acceptedEvents", new ArrayList<>(EventStorageHelper.getSavedEvents()));
                 startActivity(intent);
                 drawerLayout.closeDrawers();
             } else if (id == R.id.nav_profile) {
@@ -89,18 +87,12 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Sample events
-        events = new ArrayList<>();
-        events.add(new Event("AI Community of Practice", "The UW AI Community of Practice is for everyone! We welcome participation from the entire university, including students. We want to build community and are planning all sorts of fun and interesting events", ZonedDateTime.of(2025, 04, 30, 10, 0, 0, 0, ZoneId.of("PST")), "Zoom"));
-        events.add(new Event("UW Botanic Gardens Tour", "UW Botanic Gardens is committed to enriching the lives of all community members with free public tours.", ZonedDateTime.of(2025, 5, 1, 11, 30, 0, 0, ZoneId.of("PST")), "Washington Park Arboretum"));
-        events.add(new Event("Social Media Marketing Skills for Entrepreneurs", "Join us to learn valuable skills to support your current (or future!) entrepreneurial ventures!", ZonedDateTime.of(2025, 5, 2, 13, 0, 0, 0, ZoneId.of("PST")), "Zoom"));
-        events.add(new Event("UW Planetarium First Friday Show", "Please reserve your spot!", ZonedDateTime.of(2025, 5, 3, 19, 0, 0, 0, ZoneId.of("PST")), "UW Planetarium"));
-        events.add(new Event("Data Storage Day", "Don’t miss this chance to explore a powerful, university-supported storage service that’s flexible, accessible, and ready for you!", ZonedDateTime.of(2025, 5, 5, 13, 0, 0, 0, ZoneId.of("PST")), "Physics / Astronomy Building (PAT)"));
-        events.add(new Event("Virtual Morning Flow with Pranify Yoga", "Start your day with intention, ease and energy.", ZonedDateTime.of(2025, 5, 6, 18, 0, 0, 0, ZoneId.of("PST")), "Intramural Activities Building (IMA)"));
-        events.add(new Event("Coffee Roasting Workshop", "Participants will tour the Husky Grind Coffee roasting lab and learn how coffee is roasted firsthand, taking home a sample of coffee from a batch they had a hand in roasting.", ZonedDateTime.of(2025, 5, 7, 15, 0, 0, 0, ZoneId.of("PST")), "Husky Grind Coffee Roastary"));
-        events.add(new Event("Git for Everyone!", "You'll learn how to track changes, collaborate with others using GitHub/GitLab, and structure your work for transparency and reproducibility.", ZonedDateTime.of(2025, 5, 8, 13, 0, 0, 0, ZoneId.of("PST")), "Suzzallo Library (SUZ)"));
+        if (EventStorageHelper.getAllEvents() == null) {
+            EventStorageHelper.setAllEvents();
+        }
+
         // Initialize EventAdapter
-        eventAdapter = new EventAdapter(this, events);
+        eventAdapter = new EventAdapter(this, EventStorageHelper.getAllEvents());
         recyclerView.setAdapter(eventAdapter);
         recyclerView.setHasFixedSize(true);
 
@@ -119,20 +111,14 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 if (direction == ItemTouchHelper.RIGHT) {
-                    addToCalendar(events.get(position));
-                    events.remove(position);
+                    EventStorageHelper.addSavedEvents(EventStorageHelper.getAllEvents().get(position));
+                    Toast.makeText(MainActivity.this, "Event saved for Calendar", Toast.LENGTH_SHORT).show();
+                    EventStorageHelper.removeEvent(position);
                     eventAdapter.notifyItemRemoved(position);
                 } else if (direction == ItemTouchHelper.LEFT) {
                     Toast.makeText(MainActivity.this, "Event discarded", Toast.LENGTH_SHORT).show();
-                    events.remove(position);
+                    EventStorageHelper.removeEvent(position);
                     eventAdapter.notifyItemRemoved(position);
-                } else if (direction == ItemTouchHelper.UP) {
-                    Event maybeEvent = events.get(position);
-                    events.remove(position);
-                    events.add(maybeEvent);
-                    eventAdapter.notifyItemRemoved(position);
-                    eventAdapter.notifyItemInserted(events.size() - 1);
-                    Toast.makeText(MainActivity.this, "Maybe: moved to end", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -195,11 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    }
-
-    private void addToCalendar(Event event) {
-        savedEvents.add(event);
-        Toast.makeText(this, "Event saved for Calendar", Toast.LENGTH_SHORT).show();
     }
 
     @Override
